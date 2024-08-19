@@ -1,0 +1,42 @@
+FUNCTION analyzeSentence(sentence : STRING) : ARRAY OF INTEGER
+VAR
+  charCpt : INTEGER;
+  wordCpt : INTEGER;
+  vowelCpt : INTEGER;
+  i : INTEGER;
+  j : INTEGER;
+  currentChar : CHAR;
+  voyels : ARRAY OF CHAR;
+  result : ARRAY OF INTEGER;
+
+BEGIN
+
+  charCpt := 0;//nombre de caractere
+  wordCpt := 1;//nombre de mot initialiser a 1 car nMot=nEspace+1
+  voyelCpt := 0;//nombre de voyel
+  voyels := ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];//tab des voyel sou format upper et lower case 
+  i := 0;
+
+  WHILE (i < sentence.length) DO//parcour la phrase char par char 
+    charCpt := charCpt + 1;
+    currentChar := sentence[i];
+    
+    FOR j FROM 0 TO vowels.length - 1 STEP 1 DO//verifie si c'est une voyelle 
+      IF (currentChar = vowels[j]) THEN
+        voyelCpt := vowelCpt + 1;
+        BREAK; 
+      END_IF
+    END_FOR
+    
+    IF (currentChar = " ") THEN//verifie si cest un space
+      wordCpt := wordCpt + 1;
+    END_IF
+    
+    i := i + 1;//passe a l'autre char
+    
+  END_WHILE
+  
+  IF (sentence[charCpt - 1] = ".") THEN
+    RETURN [charCpt, wordCpt, voyelCpt];//renvoi le nChar le nWord et le nVoyel
+  END_IF
+END
